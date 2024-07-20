@@ -1,5 +1,7 @@
 require('dotenv').config();
 const {Pool} = require("pg");
+const inquirer = require('inquirer');
+
 
 const pool = new Pool(
 {
@@ -12,8 +14,39 @@ const pool = new Pool(
 },
 console.log("Successs")
 
-
 )
 
 
+async function init(){
 
+
+    const answers = await inquirer.prompt([
+
+        {
+            type:"list",
+            message:"Select a license that was used for this repository",
+            name:"test",
+            choices: [1,2,3,4]
+        },
+
+
+
+    ]);
+
+
+    if (answers.test === 4){
+
+        return 
+
+    }
+
+   console.log(answers.test);
+
+
+}
+
+
+init();
+
+
+module.exports = {pool};
