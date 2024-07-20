@@ -1,7 +1,38 @@
 
 const inquirer = require("inquirer");
 
-const {init} = require('../../app');
+const {pool} = require('../../connection/connect-pool');
+
+
+
+const firstOption = async()=>{
+
+    try{
+
+        const client = await pool.connect();
+
+        const result = await client.query('SELECT * FROM department;');
+
+        console.log(result.rows);
+        
+        client.release();
+
+
+    }
+    catch(error){
+        await pool.end();
+        console.log(error);
+    }
+    finally{
+
+        await pool.end();
+
+    }
+
+
+
+
+}
 
 async function test(){
 
@@ -15,15 +46,13 @@ async function test(){
             choices: ['nothing', 'tired']
         },
 
-
     ]);
 
     console.log(response.option);
 
 
-
-
-
 }
 
-module.exports = {test}
+// firstOption();
+
+module.exports = {test, firstOption}

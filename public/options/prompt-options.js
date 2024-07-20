@@ -11,7 +11,6 @@ const options =[
     'Update Employee role',
     'Exit'
 
-
 ];
 
 
