@@ -6,6 +6,7 @@ const {pool} = require('../../connection/connect-pool');
 
 
 const firstOption = async()=>{
+    
 
     try{
 
@@ -20,7 +21,6 @@ const firstOption = async()=>{
 
     }
     catch(error){
-        await pool.end();
         console.log(error);
     }
     finally{

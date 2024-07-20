@@ -22,7 +22,7 @@ async function init(){
 
     ]);
 
-    const [first, second, third, fourth, fifth, sixth, seventh, eigth] = options;
+    const [first, second, third, fourth] = options;
 
     if(answers.option === first){
 
@@ -31,7 +31,7 @@ async function init(){
     }
 
 
-    if (answers.option === 'Exit'){
+    if (answers.option === fourth){
 
         return 
 
