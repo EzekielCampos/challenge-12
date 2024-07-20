@@ -1,19 +1,53 @@
 require('dotenv').config();
-const {Pool} = require("pg");
+const inquirer = require('inquirer');
+const {options} = require('./public/options/prompt-options');
 
-const pool = new Pool(
-{
-
-    user:process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    host: 'localhost',
-    database: process.env.DB_NAME
-
-},
-console.log("Successs")
+const {firstOption, secondOption, thirdOption} = require("./public/options/response-functions");
 
 
-)
 
+
+async function init(){
+
+
+    const answers = await inquirer.prompt([
+
+        {
+            type:"list",
+            message:"What would you like to do?",
+            name:"option",
+            choices: options
+        },
+
+
+    ]);
+
+    const [first, second, third, fourth] = options;
+
+    if(answers.option === first){
+
+        await firstOption();
+
+    }
+
+    if(answers.option === second){
+        await secondOption();
+    }
+
+
+    if (answers.option === fourth){
+
+        return 
+
+    }
+
+   console.log(answers.option);
+   await init();
+
+
+}
+
+
+init();
 
 
