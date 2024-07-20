@@ -2,6 +2,8 @@ require('dotenv').config();
 const {Pool} = require("pg");
 const inquirer = require('inquirer');
 
+const {options} = require('./public/prompt-options');
+
 
 const pool = new Pool(
 {
@@ -24,9 +26,9 @@ async function init(){
 
         {
             type:"list",
-            message:"Select a license that was used for this repository",
-            name:"test",
-            choices: [1,2,3,4]
+            message:"What would you like to do?",
+            name:"option",
+            choices: options
         },
 
 
@@ -34,13 +36,13 @@ async function init(){
     ]);
 
 
-    if (answers.test === 4){
+    if (answers.option === 'Exit'){
 
         return 
 
     }
 
-   console.log(answers.test);
+   console.log(answers.option);
 
 
 }
