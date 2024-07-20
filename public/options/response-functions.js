@@ -1,18 +1,31 @@
 
 const inquirer = require("inquirer");
 
-const {pool} = require('../../connection/connect-pool');
-
+const {createPool} = require('../../connection/connect-pool');
 
 
 const firstOption = async()=>{
-    
 
+    const pool = createPool();
+    
     try{
 
-        const client = await pool.connect();
+    const response = await inquirer.prompt([
 
-        const result = await client.query('SELECT * FROM department;');
+        {
+            type:"list",
+            message:"Which data would you like to view?",
+            name:"option",
+            choices: ['department', 'role', 'employee']
+        },
+
+    ]);
+
+    console.log(response.option);
+
+       const client=  await pool.connect();
+
+        const result = await pool.query(`SELECT * FROM ${response.option} `);
 
         console.log(result.rows);
         
