@@ -3,9 +3,11 @@ const inquirer = require("inquirer");
 
 const {createPool} = require('../../connection/connect-pool');
 
+const {Query} = require('../query/query-classes');
+
 const firstOption = async()=>{
 
-    const pool = createPool();
+    // const pool = createPool();
     
     try{
 
@@ -22,24 +24,28 @@ const firstOption = async()=>{
 
     console.log(response.option);
 
-       const client=  await pool.connect();
+    const showData = new Query(response.option);
 
-        const result = await pool.query(`SELECT * FROM ${response.option} `);
+    await showData.displayData();
 
-        console.log(result.rows);
+    //    const client=  await pool.connect();
+
+    //     const result = await pool.query(`SELECT * FROM ${response.option} `);
+
+    //     console.log(result.rows);
         
-        client.release();
+    //     client.release();
 
 
     }
     catch(error){
         console.log(error);
     }
-    finally{
+    // finally{
 
-        await pool.end();
+    //     await pool.end();
 
-    }
+    // }
 
 }
 

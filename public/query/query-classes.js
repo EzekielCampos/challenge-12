@@ -19,7 +19,7 @@ class Query
 
             const client=  await pool.connect();
 
-            const result = await pool.query(`SELECT * FROM ${response.option} `);
+            const result = await pool.query(`SELECT * FROM ${this.dataTable} `);
 
             console.log(result.rows);
             
