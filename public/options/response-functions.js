@@ -3,7 +3,12 @@ const inquirer = require("inquirer");
 
 const {createPool} = require('../../connection/connect-pool');
 
-const {Query} = require('../query/query-classes');
+const {Query, Department} = require('../query/query-classes');
+
+const {addingDepartment} = require('./adding-data-functions');
+
+const {tables} = require('../options/prompt-options');
+
 
 const firstOption = async()=>{
 
@@ -17,7 +22,7 @@ const firstOption = async()=>{
             type:"list",
             message:"Which data would you like to view?",
             name:"option",
-            choices: ['department', 'role', 'employee']
+            choices: tables
         },
 
     ]);
@@ -28,24 +33,11 @@ const firstOption = async()=>{
 
     await showData.displayData();
 
-    //    const client=  await pool.connect();
-
-    //     const result = await pool.query(`SELECT * FROM ${response.option} `);
-
-    //     console.log(result.rows);
-        
-    //     client.release();
-
 
     }
     catch(error){
         console.log(error);
     }
-    // finally{
-
-    //     await pool.end();
-
-    // }
 
 }
 
@@ -58,12 +50,23 @@ const secondOption= async() =>{
             type:"list",
             message:"What would you like to add?",
             name:"option",
-            choices: ['department', 'role', 'employee']
+            choices: tables
         },
 
     ]);
-
     console.log(response.option);
+
+
+    const [department, role, employee] = tables
+    console.log(department);
+
+    switch(response.option){
+        case department:
+            await addingDepartment(department);
+            break;
+
+    }
+
 
 
 }

@@ -10,9 +10,12 @@ const options =[
 ];
 
 
+const tables = ['department', 'role', 'employee']
 
 
 
 
 
-module.exports = {options}
+
+
+module.exports = {options, tables}
