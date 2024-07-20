@@ -2,7 +2,7 @@ require('dotenv').config();
 const inquirer = require('inquirer');
 const {options} = require('./public/options/prompt-options');
 
-const {test, firstOption} = require("./public/options/response-functions");
+const {firstOption, secondOption, thirdOption} = require("./public/options/response-functions");
 
 
 
@@ -28,6 +28,10 @@ async function init(){
 
         await firstOption();
 
+    }
+
+    if(answers.option === second){
+        await secondOption();
     }
 
 

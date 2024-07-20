@@ -4,7 +4,7 @@ const options =[
 
     'View company data',
     'Add to database',
-    'Update data',
+    'Update employee role',
     'Exit'
 
 ];

@@ -3,7 +3,6 @@ const inquirer = require("inquirer");
 
 const {createPool} = require('../../connection/connect-pool');
 
-
 const firstOption = async()=>{
 
     const pool = createPool();
@@ -42,21 +41,18 @@ const firstOption = async()=>{
 
     }
 
-
-
-
 }
 
-async function test(){
+const secondOption= async() =>{
 
 
     const response = await inquirer.prompt([
 
         {
             type:"list",
-            message:"Hello?",
+            message:"What would you like to add?",
             name:"option",
-            choices: ['nothing', 'tired']
+            choices: ['department', 'role', 'employee']
         },
 
     ]);
@@ -66,6 +62,25 @@ async function test(){
 
 }
 
-// firstOption();
 
-module.exports = {test, firstOption}
+const thirdOption= async() =>{
+
+
+    const response = await inquirer.prompt([
+
+        {
+            type:"list",
+            message:"Select an Employee to update?",
+            name:"option",
+            choices: ['employee']
+        },
+
+    ]);
+
+    console.log(response.option);
+
+
+}
+
+
+module.exports = {firstOption, secondOption, thirdOption}
