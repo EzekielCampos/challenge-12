@@ -2,7 +2,9 @@ require('dotenv').config();
 const {Pool} = require("pg");
 const inquirer = require('inquirer');
 
-const {options} = require('./public/prompt-options');
+const {options} = require('./public/options/prompt-options');
+
+const {test} = require("./public/options/response-functions");
 
 
 const pool = new Pool(
@@ -32,8 +34,13 @@ async function init(){
         },
 
 
-
     ]);
+
+    if(answers.option === 'Add a Role'){
+
+        await test();
+
+    }
 
 
     if (answers.option === 'Exit'){
@@ -43,6 +50,7 @@ async function init(){
     }
 
    console.log(answers.option);
+   await init();
 
 
 }
@@ -51,4 +59,4 @@ async function init(){
 init();
 
 
-module.exports = {pool};
+module.exports = {pool, inquirer};
