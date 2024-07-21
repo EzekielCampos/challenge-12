@@ -1,7 +1,7 @@
 
 const inquirer = require('inquirer');
 
-const {Department, Role}= require('../query/query-classes');
+const {Department, Role}= require('../classes/query-classes');
 
 
 const addingDepartment = async(table)=>{
@@ -62,6 +62,10 @@ const addingRole = async(table)=>{
     ]);
 
     console.log(response);
+
+    const {department, salary, title} = response;
+
+    const role = new Role(title, salary, department)
 
 
 

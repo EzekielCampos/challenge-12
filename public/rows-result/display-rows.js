@@ -1,7 +1,7 @@
 const {createPool} = require('../../connection/connect-pool')
 
 
-const displayQuery = async(queryString)=>{
+const runQuery = async(queryString)=>{
 
     const pool = createPool();
 
@@ -29,4 +29,4 @@ const displayQuery = async(queryString)=>{
 
 }
 
-module.exports = {displayQuery}
+module.exports = {runQueryQuery}

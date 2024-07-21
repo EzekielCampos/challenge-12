@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 
 // const {createPool} = require('../../connection/connect-pool');
 
-const {Query, Department} = require('../query/query-classes');
+const {Query, Department} = require('../classes/query-classes');
 
 const {addingDepartment, addingRole} = require('./adding-data-functions');
 

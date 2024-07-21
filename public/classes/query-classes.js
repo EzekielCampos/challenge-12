@@ -2,7 +2,8 @@
 
 const {createPool} = require('../../connection/connect-pool');
 // const {tables} = require('../options/prompt-options');
-const {displayQuery} = require('../rows-result/display-rows');
+const {runQuery} = require('../rows-result/display-rows');
+const {getDepartmentId} = require('../helper/helper-functions');
 
 
 class Query
@@ -19,7 +20,7 @@ class Query
 
     try{
 
-        await displayQuery(this.query);
+        await runQuery(this.query);
 
 
     }
@@ -45,7 +46,7 @@ class Department extends Query{
     async addData(){
 
         try{
-            await displayQuery(this.query)
+            await runQuery(this.query)
 
         }
         catch(error){
@@ -90,7 +91,7 @@ class Role extends Query{
         super(dataTable);
         this.title =title;
         this.salary = salary;
-        this.department = department;
+        this.department = getDepartmentId(department);
     }
 
     async createQuery(){
