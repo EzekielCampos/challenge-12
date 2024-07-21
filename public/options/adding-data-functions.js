@@ -1,9 +1,7 @@
 
 const inquirer = require('inquirer');
 
-const {Department}= require('../query/query-classes');
-
-
+const {Department, Role}= require('../query/query-classes');
 
 
 const addingDepartment = async(table)=>{
@@ -32,9 +30,38 @@ const addingDepartment = async(table)=>{
         console.log(error);
     }
 
+}
 
-    
+const addingRole = async(table)=>{
 
+    const response = await inquirer.prompt([
+
+        {
+            type:"text",
+            message:"What is the name of the new role",
+            name:"title",
+        },
+        {
+            type:"text",
+            message:"What is the salary?",
+            name:"salary",
+            validate: function (value) {
+                const valid = !isNaN(parseFloat(value)) && isFinite(value);
+                return valid || 'Please enter a valid number';
+              },
+              filter: Number,
+        },
+        {
+            type:"list",
+            message:"What is the name of the new role",
+            name:"department",
+            choices:['hi']
+        },
+
+
+    ]);
+
+    console.log(response);
 
 
 
@@ -44,4 +71,4 @@ const addingDepartment = async(table)=>{
 
 
 
-module.exports = {addingDepartment}
+module.exports = {addingDepartment,addingRole}
