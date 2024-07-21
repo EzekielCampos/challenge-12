@@ -24,26 +24,21 @@ async function init(){
 
     const [first, second, third, fourth] = options;
 
-    if(answers.option === first){
-
+    switch (answers.option){
+        case first:
         await firstOption();
-
-    }
-
-    if(answers.option === second){
+        break;
+        case second:
         await secondOption();
-    }
-
-
-    if (answers.option === fourth){
-
-        return 
-
+        break;
+        case third:
+        break;
+        case fourth:
+        return;
     }
 
    console.log(answers.option);
    await init();
-
 
 }
 

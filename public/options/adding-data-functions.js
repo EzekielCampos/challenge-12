@@ -65,21 +65,12 @@ const addingRole = async(table)=>{
 
     ]);
 
-    // console.log(response.department);
-
     const {department, salary, title} = response;
 
     const deptId = await getDepartmentId(department)
 
     const role = new Role(table, title, salary, deptId)
-    console.log(role);
-    role.addData();
-
-    // await role.addData();
-
-    // console.log(role.department);
-
-
+    await role.addData();
 
 }
 

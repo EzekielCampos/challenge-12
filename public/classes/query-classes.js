@@ -112,18 +112,43 @@ class Role extends Query{
 
     }
 
-        // const query = `SELECT department.id FROM department WHERE name = $1`;
-        // const job = [this.department];
+    }
 
 
 
+
+    class Employee extends Query{
+
+        constructor(dataTable,firstName,lastName, role, manager){
+            super(dataTable);
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.role = role;
+            this.manager = manager;
+            this.query = `INSERT INTO ${this.dataTable}(first_name, last_name, role_id, manager_id) 
+        VALUES ('${this.firstName}', '${this.lastName}', ${this.role}, ${this.manager});`;
+        }
+
+        async addData(){
+            
+            try{
+
+                await runQuery(this.query);
+            
+            }
+            catch(error){
+                console.log(error);
+            }
+
+
+        }
 
 
     }
 
 
 
-module.exports = {Query, Department, Role};
+module.exports = {Query, Department, Role, Employee};
 
 
 
