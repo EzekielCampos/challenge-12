@@ -76,7 +76,7 @@ const addingRole = async(table)=>{
 
 const addingEmployee = async(table)=>{
 
-    const noSupervisor = 'N/A';
+const noSupervisor = 'N/A';
 
 const supervisors = await getListOfEmployees();
 supervisors.push(noSupervisor);
@@ -125,6 +125,36 @@ const positions = await getListOfRoles();
 
 }
 
+const updatingEmployeeRole = async(table = 'employee')=>{
+
+    const positions = await getListOfRoles();
+    const workers = await getListOfEmployees()
+
+    const response = await inquirer.prompt([
+
+        {
+            type:"list",
+            message:"Which employee would you like to update?",
+            name:"employee",
+            choices:workers
+        },
+        {
+            type:"list",
+            message:"SELECT",
+            name:"role",
+            choices:positions
+    
+        },]);
+
+        console.log(table);
+
+        console.log(response);
+
+
+
+
+
+}
 
 
 
@@ -132,4 +162,6 @@ const positions = await getListOfRoles();
 
 
 
-module.exports = {addingDepartment,addingRole, addingEmployee}
+
+
+module.exports = {addingDepartment,addingRole, addingEmployee,updatingEmployeeRole}

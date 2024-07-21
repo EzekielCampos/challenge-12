@@ -1,18 +1,13 @@
 
 const inquirer = require("inquirer");
 
-// const {createPool} = require('../../connection/connect-pool');
-
-const {Query, Department} = require('../classes/query-classes');
-
-const {addingDepartment, addingRole, addingEmployee} = require('./adding-data-functions');
+const {addingDepartment, addingRole, addingEmployee, updatingEmployeeRole} = require('./adding-data-functions');
 
 const {tables} = require('../options/prompt-options');
 
 
 const firstOption = async()=>{
 
-    // const pool = createPool();
     
     try{
 
@@ -81,18 +76,8 @@ const secondOption= async() =>{
 const thirdOption= async() =>{
 
 
-    const response = await inquirer.prompt([
+    await updatingEmployeeRole();
 
-        {
-            type:"list",
-            message:"Select an Employee to update?",
-            name:"option",
-            choices: ['employee']
-        },
-
-    ]);
-
-    console.log(response.option);
 
 
 }

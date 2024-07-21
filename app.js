@@ -32,6 +32,7 @@ async function init(){
         await secondOption();
         break;
         case third:
+        await thirdOption();
         break;
         case fourth:
         return;
