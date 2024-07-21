@@ -5,7 +5,7 @@ const inquirer = require("inquirer");
 
 const {Query, Department} = require('../classes/query-classes');
 
-const {addingDepartment, addingRole} = require('./adding-data-functions');
+const {addingDepartment, addingRole, addingEmployee} = require('./adding-data-functions');
 
 const {tables} = require('../options/prompt-options');
 
@@ -66,6 +66,9 @@ const secondOption= async() =>{
             break;
         case role:
             await addingRole(role);
+            break;
+        case employee:
+            await addingEmployee(employee);
             break;
 
     }

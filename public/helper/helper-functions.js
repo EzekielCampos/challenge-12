@@ -55,6 +55,32 @@ const getListOfDepartments = async()=>{
 }
 
 
+const getListOfEmployees = async()=>{
+
+    const pool = createPool();
+    const query = 'SELECT first_name,last_name FROM employee';
+
+    try{
+
+        const client = await pool.connect();
+        const result = await client.query(query);
+        const employeesNames = result.rows.map(row => row.first_name + " " + row.last_name);
+        client.release();
+        return employeesNames;
+
+    }
+    catch(error){
+        console.log(error);
+    }
+    finally{
+
+        pool.end();
+
+    }
+
+}
 
 
-  module.exports = {getDepartmentId, getListOfDepartments}
+
+
+  module.exports = {getDepartmentId, getListOfDepartments, getListOfEmployees}

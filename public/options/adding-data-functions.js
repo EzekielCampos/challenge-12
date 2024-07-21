@@ -1,9 +1,9 @@
 
 const inquirer = require('inquirer');
 
-const {Department, Role}= require('../classes/query-classes');
+const {Department, Role, Employee}= require('../classes/query-classes');
 
-const {getListOfDepartments, getDepartmentId} = require('../helper/helper-functions')
+const {getListOfDepartments, getDepartmentId, getListOfEmployees} = require('../helper/helper-functions')
 
 
 const addingDepartment = async(table)=>{
@@ -74,8 +74,48 @@ const addingRole = async(table)=>{
 
 }
 
+const addingEmployee = async(table)=>{
+
+const supervisors = await getListOfEmployees();
+    const response = await inquirer.prompt([
+
+        {
+            type:"text",
+            message:"What is the first name?",
+            name:"firstName",
+        },
+        {
+            type:"text",
+            message:"What is the last name",
+            name:"lastName",
+    
+        },
+        {
+            type:"list",
+            message:"What position do they hold?",
+            name:"role",
+            choices:['test']
+        },
+        {
+            type:"list",
+            message:"Who is their manager?",
+            name:"Manager",
+            choices:['test']
+        },
+
+
+    ]);
+
+    console.log(response);
+
+
+}
 
 
 
 
-module.exports = {addingDepartment,addingRole}
+
+
+
+
+module.exports = {addingDepartment,addingRole, addingEmployee}
