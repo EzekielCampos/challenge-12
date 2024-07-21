@@ -11,7 +11,11 @@ const runQuery = async(queryString)=>{
 
         const result = await client.query(queryString);
 
-        console.log(result.rows)
+        const table = result.rows.map(row=>{row});
+
+        console.table(result.rows)
+
+
         client.release();
 
 
@@ -36,9 +40,9 @@ const safeQuery = async(queryString, value)=>{
 
         const client=  await pool.connect();
 
-        const result = await client.query(queryString,value);
+        const result = await client.query(queryString, value);
 
-        console.log(result.rows)
+        console.table(result.rows)
         client.release();
 
 

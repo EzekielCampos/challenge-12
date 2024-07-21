@@ -2,8 +2,8 @@
 const inquirer = require("inquirer");
 const {Query} = require('../classes/query-classes')
 
-const {addingDepartment, addingRole, addingEmployee, updatingEmployeeRole} = require('./adding-data-functions');
-
+const {addingDepartment, addingRole, addingEmployee} = require('./adding-data-functions');
+const {updatingEmployeeRole} = require('./updating-role');
 const {tables} = require('../options/prompt-options');
 
 

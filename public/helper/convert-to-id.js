@@ -38,7 +38,7 @@ const getRoleId = async (position) => {
         client.release();
         return result.rows[0].id;
       } else {
-        console.log('Department not found');
+        console.log('Role not found');
         client.release();
         return null;
       }
@@ -63,7 +63,7 @@ const getRoleId = async (position) => {
         client.release();
         return result.rows[0].id;
       } else {
-        console.log('Department not found');
+        console.log('Employee not found');
         client.release();
         return null;
       }
