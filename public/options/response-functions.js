@@ -1,11 +1,14 @@
 
 const inquirer = require("inquirer");
+const {Query} = require('../classes/query-classes')
 
-const {createPool} = require('../../connection/connect-pool');
+const {addingDepartment, addingRole, addingEmployee} = require('./adding-data-functions');
+const {updatingEmployeeRole} = require('./updating-role');
+const {tables} = require('../options/prompt-options');
+
 
 const firstOption = async()=>{
 
-    const pool = createPool();
     
     try{
 
@@ -15,30 +18,19 @@ const firstOption = async()=>{
             type:"list",
             message:"Which data would you like to view?",
             name:"option",
-            choices: ['department', 'role', 'employee']
+            choices: tables
         },
 
     ]);
 
-    console.log(response.option);
+    const showData = new Query(response.option);
 
-       const client=  await pool.connect();
-
-        const result = await pool.query(`SELECT * FROM ${response.option} `);
-
-        console.log(result.rows);
-        
-        client.release();
+    await showData.displayData();
 
 
     }
     catch(error){
         console.log(error);
-    }
-    finally{
-
-        await pool.end();
-
     }
 
 }
@@ -52,12 +44,29 @@ const secondOption= async() =>{
             type:"list",
             message:"What would you like to add?",
             name:"option",
-            choices: ['department', 'role', 'employee']
+            choices: tables
         },
 
     ]);
-
     console.log(response.option);
+
+
+    const [department, role, employee] = tables
+    console.log(department);
+
+    switch(response.option){
+        case department:
+            await addingDepartment(department);
+            break;
+        case role:
+            await addingRole(role);
+            break;
+        case employee:
+            await addingEmployee(employee);
+            break;
+
+    }
+
 
 
 }
@@ -66,18 +75,7 @@ const secondOption= async() =>{
 const thirdOption= async() =>{
 
 
-    const response = await inquirer.prompt([
-
-        {
-            type:"list",
-            message:"Select an Employee to update?",
-            name:"option",
-            choices: ['employee']
-        },
-
-    ]);
-
-    console.log(response.option);
+    await updatingEmployeeRole();
 
 
 }
