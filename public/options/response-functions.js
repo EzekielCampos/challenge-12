@@ -1,5 +1,6 @@
 
 const inquirer = require("inquirer");
+const {Query} = require('../classes/query-classes')
 
 const {addingDepartment, addingRole, addingEmployee, updatingEmployeeRole} = require('./adding-data-functions');
 
@@ -21,8 +22,6 @@ const firstOption = async()=>{
         },
 
     ]);
-
-    console.log(response.option);
 
     const showData = new Query(response.option);
 
@@ -77,7 +76,6 @@ const thirdOption= async() =>{
 
 
     await updatingEmployeeRole();
-
 
 
 }

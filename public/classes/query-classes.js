@@ -2,7 +2,7 @@
 
 const {createPool} = require('../../connection/connect-pool');
 // const {tables} = require('../options/prompt-options');
-const {runQuery} = require('../rows-result/display-rows');
+const {runQuery, safeQuery} = require('../rows-result/display-rows');
 
 
 class Query
@@ -37,15 +37,15 @@ class Department extends Query{
 
     constructor(dataTable, name){
         super(dataTable);
-        this.name = name;
-        this.query = `INSERT INTO ${this.dataTable}(name) VALUES ('${this.name}');`
+        this.name = [name];
+        this.query = `INSERT INTO ${this.dataTable}(name) VALUES ($1);`
     }
 
 
     async addData(){
 
         try{
-            await runQuery(this.query)
+            await safeQuery(this.query, this.name)
 
         }
         catch(error){

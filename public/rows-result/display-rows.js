@@ -28,4 +28,31 @@ const runQuery = async(queryString)=>{
 
 }
 
-module.exports = {runQuery}
+const safeQuery = async(queryString, value)=>{
+
+    const pool = createPool();
+
+    try{
+
+        const client=  await pool.connect();
+
+        const result = await client.query(queryString,value);
+
+        console.log(result.rows)
+        client.release();
+
+
+    }
+    catch(error){
+        console.log(error);
+    }
+    finally{
+
+        await pool.end();
+
+    }
+
+
+}
+
+module.exports = {runQuery, safeQuery}
