@@ -52,30 +52,6 @@ class Department extends Query{
             console.log(error)
         }
 
-        // const pool = createPool();
-
-        // try{
-
-        //     const client=  await pool.connect();
-        //     console.log(this.query);
-
-        //     const result = await pool.query(this.query);
-
-        //     console.log(result);
-            
-        //     client.release();
-
-
-        // }
-        // catch(error){
-        //     console.log(error);
-        // }
-        // finally{
-
-        //     await pool.end();
-
-        // }
-
 
     }
 
@@ -90,9 +66,10 @@ class Role extends Query{
         super(dataTable);
         this.title =title;
         this.salary = salary;
+        this.placeholder= [title, salary];
         this.department = department;
         this.query = `INSERT INTO ${this.dataTable}(title, salary, department_id) 
-        VALUES ('${this.title}', ${this.salary}, ${this.department});`
+        VALUES ($1, $2, ${this.department});`
 
     }
 
@@ -101,7 +78,7 @@ class Role extends Query{
 
         try{
 
-        await runQuery(this.query);
+        await safeQuery(this.query, this.placeholder);
 
 
         }
@@ -123,17 +100,18 @@ class Role extends Query{
             super(dataTable);
             this.firstName = firstName;
             this.lastName = lastName;
+            this.placeholder = [firstName, lastName];
             this.role = role;
             this.manager = manager;
             this.query = `INSERT INTO ${this.dataTable}(first_name, last_name, role_id, manager_id) 
-        VALUES ('${this.firstName}', '${this.lastName}', ${this.role}, ${this.manager});`;
+        VALUES ($1, $2, ${this.role}, ${this.manager});`;
         }
 
         async addData(){
             
             try{
 
-                await runQuery(this.query);
+                await safeQuery(this.query, this.placeholder);
             
             }
             catch(error){
