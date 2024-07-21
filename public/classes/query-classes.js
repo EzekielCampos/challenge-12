@@ -119,7 +119,7 @@ class Role extends Query{
 
     class Employee extends Query{
 
-        constructor(dataTable,firstName,lastName, role, manager){
+        constructor(dataTable, firstName, lastName, role, manager){
             super(dataTable);
             this.firstName = firstName;
             this.lastName = lastName;

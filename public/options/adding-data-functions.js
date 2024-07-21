@@ -3,8 +3,9 @@ const inquirer = require('inquirer');
 
 const {Department, Role, Employee}= require('../classes/query-classes');
 
-const {getListOfDepartments, getDepartmentId, getListOfEmployees} = require('../helper/helper-functions')
+const {getListOfDepartments, getListOfEmployees,getListOfRoles} = require('../helper/helper-functions')
 
+const{getRoleId, getDepartmentId, getEmployeeId} = require('../helper/convert-to-id');
 
 const addingDepartment = async(table)=>{
 
@@ -18,7 +19,6 @@ const addingDepartment = async(table)=>{
             },
     
         ]);
-    
     
         const {nameOfDepartment} = response;
     
@@ -76,7 +76,11 @@ const addingRole = async(table)=>{
 
 const addingEmployee = async(table)=>{
 
+    const noSupervisor = 'N/A';
+
 const supervisors = await getListOfEmployees();
+supervisors.push(noSupervisor);
+const positions = await getListOfRoles();
     const response = await inquirer.prompt([
 
         {
@@ -94,19 +98,29 @@ const supervisors = await getListOfEmployees();
             type:"list",
             message:"What position do they hold?",
             name:"role",
-            choices:['test']
+            choices:positions
         },
         {
             type:"list",
             message:"Who is their manager?",
-            name:"Manager",
-            choices:['test']
+            name:"manager",
+            choices:supervisors
         },
 
 
     ]);
 
-    console.log(response);
+    let {firstName, lastName, role, manager} = response;
+
+    manager = manager.split(' ');
+
+    role = await getRoleId(role);
+    manager = await getEmployeeId(manager[0], manager[1]);
+
+    const employee = new Employee(table, firstName, lastName, role, manager);
+
+    await employee.addData();
+
 
 
 }
