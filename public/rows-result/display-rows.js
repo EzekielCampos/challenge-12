@@ -8,9 +8,8 @@ const runQuery = async(queryString)=>{
     try{
 
         const client=  await pool.connect();
-        console.log(this.query);
 
-        const result = await pool.query(queryString);
+        const result = await client.query(queryString);
 
         console.log(result.rows)
         client.release();
@@ -29,4 +28,4 @@ const runQuery = async(queryString)=>{
 
 }
 
-module.exports = {runQueryQuery}
+module.exports = {runQuery}

@@ -92,32 +92,22 @@ class Role extends Query{
         this.title =title;
         this.salary = salary;
         this.department = getDepartmentId(department);
+        this.query = `INSERT INTO ${this.dataTable}(title, salary, department_id) 
+        VALUES ('${this.title}, ${this.salary}, ${this.department}');`
+
     }
 
-    async createQuery(){
+    async addData(){
 
-        const pool = createPool();
 
         try{
 
-            const client=  await pool.connect();
-            console.log(this.query);
-
-            const result = await pool.query(this.query);
-
-            console.log(result);
-            
-            client.release();
+        await runQuery(this.query);
 
 
         }
         catch(error){
             console.log(error);
-        }
-        finally{
-
-            await pool.end();
-
         }
 
 

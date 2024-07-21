@@ -3,6 +3,8 @@ const inquirer = require('inquirer');
 
 const {Department, Role}= require('../classes/query-classes');
 
+const {getListOfDepartments} = require('../helper/helper-functions')
+
 
 const addingDepartment = async(table)=>{
 
@@ -34,6 +36,8 @@ const addingDepartment = async(table)=>{
 
 const addingRole = async(table)=>{
 
+    const departmentOptions = await getListOfDepartments();
+
     const response = await inquirer.prompt([
 
         {
@@ -55,17 +59,17 @@ const addingRole = async(table)=>{
             type:"list",
             message:"What is the name of the new role",
             name:"department",
-            choices:['hi']
+            choices:departmentOptions
         },
 
 
     ]);
 
-    console.log(response);
+    console.log(response.department);
 
     const {department, salary, title} = response;
 
-    const role = new Role(title, salary, department)
+    const role = new Role(table, title, salary, department)
 
 
 
