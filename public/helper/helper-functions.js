@@ -39,7 +39,6 @@ const getListOfDepartments = async()=>{
         const client = await pool.connect();
         const result = await client.query(query);
         const departmentNames = result.rows.map(row => row.name);
-        console.log(departmentNames);
         client.release();
         return departmentNames;
 

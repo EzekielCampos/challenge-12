@@ -3,7 +3,6 @@
 const {createPool} = require('../../connection/connect-pool');
 // const {tables} = require('../options/prompt-options');
 const {runQuery} = require('../rows-result/display-rows');
-const {getDepartmentId} = require('../helper/helper-functions');
 
 
 class Query
@@ -91,9 +90,9 @@ class Role extends Query{
         super(dataTable);
         this.title =title;
         this.salary = salary;
-        this.department = getDepartmentId(department);
+        this.department = department;
         this.query = `INSERT INTO ${this.dataTable}(title, salary, department_id) 
-        VALUES ('${this.title}, ${this.salary}, ${this.department}');`
+        VALUES ('${this.title}', ${this.salary}, ${this.department});`
 
     }
 

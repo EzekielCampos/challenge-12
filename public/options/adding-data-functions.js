@@ -3,7 +3,7 @@ const inquirer = require('inquirer');
 
 const {Department, Role}= require('../classes/query-classes');
 
-const {getListOfDepartments} = require('../helper/helper-functions')
+const {getListOfDepartments, getDepartmentId} = require('../helper/helper-functions')
 
 
 const addingDepartment = async(table)=>{
@@ -65,11 +65,19 @@ const addingRole = async(table)=>{
 
     ]);
 
-    console.log(response.department);
+    // console.log(response.department);
 
     const {department, salary, title} = response;
 
-    const role = new Role(table, title, salary, department)
+    const deptId = await getDepartmentId(department)
+
+    const role = new Role(table, title, salary, deptId)
+    console.log(role);
+    role.addData();
+
+    // await role.addData();
+
+    // console.log(role.department);
 
 
 
