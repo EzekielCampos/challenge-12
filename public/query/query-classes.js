@@ -2,6 +2,7 @@
 
 const {createPool} = require('../../connection/connect-pool');
 // const {tables} = require('../options/prompt-options');
+const {displayQuery} = require('../rows-result/display-rows');
 
 
 class Query
@@ -9,39 +10,27 @@ class Query
     constructor(dataTable){
 
         this.dataTable = dataTable;
+        this.query = `SELECT * FROM ${this.dataTable}`;
 
     }
 
 
     async displayData(){
-        const pool = createPool();
 
-        try{
+    try{
 
-            const client=  await pool.connect();
-
-            const result = await pool.query(`SELECT * FROM ${this.dataTable} `);
-
-            console.log(result.rows);
-            
-            client.release();
-
-
-        }
-        catch(error){
-            console.log(error);
-        }
-        finally{
-
-            await pool.end();
-
-        }
+        await displayQuery(this.query);
 
 
     }
+        catch(error){
+            console.log (error);
+        }
+    }
+       
+
 
 }
-
 
 
 class Department extends Query{
@@ -54,6 +43,57 @@ class Department extends Query{
 
 
     async addData(){
+
+        try{
+            await displayQuery(this.query)
+
+        }
+        catch(error){
+            console.log(error)
+        }
+
+        // const pool = createPool();
+
+        // try{
+
+        //     const client=  await pool.connect();
+        //     console.log(this.query);
+
+        //     const result = await pool.query(this.query);
+
+        //     console.log(result);
+            
+        //     client.release();
+
+
+        // }
+        // catch(error){
+        //     console.log(error);
+        // }
+        // finally{
+
+        //     await pool.end();
+
+        // }
+
+
+    }
+
+
+}
+
+
+
+class Role extends Query{
+
+    constructor(dataTable, title, salary, department){
+        super(dataTable);
+        this.title =title;
+        this.salary = salary;
+        this.department = department;
+    }
+
+    async createQuery(){
 
         const pool = createPool();
 
@@ -82,10 +122,18 @@ class Department extends Query{
 
     }
 
+        // const query = `SELECT department.id FROM department WHERE name = $1`;
+        // const job = [this.department];
 
-}
 
-module.exports = {Query, Department};
+
+
+
+    }
+
+
+
+module.exports = {Query, Department, Role};
 
 
 

@@ -1,7 +1,7 @@
 
 const inquirer = require("inquirer");
 
-const {createPool} = require('../../connection/connect-pool');
+// const {createPool} = require('../../connection/connect-pool');
 
 const {Query, Department} = require('../query/query-classes');
 
