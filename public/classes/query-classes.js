@@ -3,7 +3,7 @@
 const {createPool} = require('../../connection/connect-pool');
 //  These functions will perform the query operations that are passed in 
 const {runQuery, safeQuery} = require('../rows-result/display-rows');
-const test = 'employee'
+const {tables} = require('../options/prompt-options');
 
 
 // This is the base class that holds the necessary parameters to display the data to the user
@@ -14,7 +14,12 @@ class Query
         // This attribute is the table that is currently being used 
         this.dataTable = dataTable;
         // This query will output all the department data 
-        this.query = `SELECT * FROM ${this.dataTable}`;
+        this.department = `SELECT * FROM ${this.dataTable}`;
+
+
+        this.role = `SELECT role.id, role.title, role.salary, department.name AS department FROM ${this.dataTable}
+        LEFT JOIN department ON role.department_id = department.id`;
+
         // This attribute will hold a specific query to list all the information about the employee and join all tables
         this.employee = `SELECT e.id AS employee_id,
         e.first_name AS employee_first_name,
@@ -34,14 +39,21 @@ class Query
 
     try{
 
-        if(this.dataTable == test) {
-            await runQuery(this.employee, this.dataTable);
+        const [department, role, employee] = tables;
+
+        switch(this.dataTable){
+            case department:
+                await runQuery(this.department, this.dataTable);
+                break;
+            case role:
+                await runQuery(this.role, this.dataTable);
+                break;
+            case employee:
+                await runQuery(this.employee, this.dataTable);
+                break;
         }
 
-        else{
-            await runQuery(this.query, this.dataTable);
 
-        }
 
 
     }

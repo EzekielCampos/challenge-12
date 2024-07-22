@@ -61,7 +61,7 @@ const roleDisplay = async (data)=>{
                 row.id,
                 row.title,
                 row.salary,
-                row.department_id
+                row.department
             ]);
         }
     
