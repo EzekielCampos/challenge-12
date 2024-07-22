@@ -5,8 +5,6 @@ const {options} = require('./public/options/prompt-options');
 const {firstOption, secondOption, thirdOption} = require("./public/options/response-functions");
 
 
-
-
 async function init(){
 
 

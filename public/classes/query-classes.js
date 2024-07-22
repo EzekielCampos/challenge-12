@@ -34,7 +34,7 @@ class Query
         }
 
         else{
-            await runQuery(this.query,this.dataTable);
+            await runQuery(this.query, this.dataTable);
 
         }
 

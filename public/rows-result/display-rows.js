@@ -1,5 +1,5 @@
 const {createPool} = require('../../connection/connect-pool')
-const {options} = require('../options/prompt-options')
+const {tables} = require('../options/prompt-options')
 const {roleDisplay, employeeDisplay, departmentDisplay} = require('./specific-displays')
 
 const runQuery = async(queryString, type)=>{
@@ -12,17 +12,13 @@ const runQuery = async(queryString, type)=>{
 
         const result = await client.query(queryString);
 
-        const [department, role, employee] = options;
+        const [department, role, employee] = tables;
         
      
         let rows = result.rows;
 
         console.log(rows);
-        // departmentDisplay(rows);
-        // roleDisplay(rows);
-        // employeeDisplay(rows);
-
-
+      
         switch(type){
             case department:
                 await departmentDisplay(rows);
