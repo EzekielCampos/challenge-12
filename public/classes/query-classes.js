@@ -30,15 +30,13 @@ class Query
     try{
 
         if(this.dataTable == test) {
-            await runQuery(this.employee);
+            await runQuery(this.employee, this.dataTable);
         }
 
         else{
-            await runQuery(this.query);
+            await runQuery(this.query,this.dataTable);
 
         }
-
-
 
 
     }

@@ -14,8 +14,4 @@ const tables = ['department', 'role', 'employee']
 
 
 
-
-
-
-
 module.exports = {options, tables}
