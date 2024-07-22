@@ -1,7 +1,6 @@
 
 
 const {createPool} = require('../../connection/connect-pool');
-// const {tables} = require('../options/prompt-options');
 const {runQuery, safeQuery} = require('../rows-result/display-rows');
 const test = 'employee'
 
@@ -18,9 +17,9 @@ class Query
         role.title AS Title, role.salary AS Salary,   
         CASE WHEN m.first_name IS NOT NULL AND m.last_name IS NOT NULL THEN CONCAT(m.first_name, ' ', m.last_name)
         ELSE 'NULL' END AS manager
-        FROM ${this.dataTable} e  LEFT JOIN employee m ON e.manager_id = m.id
+        FROM ${this.dataTable} e LEFT JOIN employee m ON e.manager_id = m.id
     JOIN role ON e.role_id = role.id
-    JOIN department ON role.department_id = department.id;` 
+    JOIN department ON role.department_id = department.id ORDER BY e.id;` 
 
     }
 

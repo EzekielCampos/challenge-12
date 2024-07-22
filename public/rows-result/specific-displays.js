@@ -24,12 +24,8 @@ console.log(table(deptColumns));
 
 const employeeDisplay = async (data)=>{
 
-//     await data.forEach((row) => {
-// employeeColumns.push([row.employee_id, row.employee_first_name, row.employee_last_name,
-//     row.department, row.title, row.salary, row.manager]);
 
-//     });
-
+   try{
     for (const row of data) {
         employeeColumns.push([
             row.employee_id,
@@ -37,11 +33,14 @@ const employeeDisplay = async (data)=>{
             row.employee_last_name,
             row.department,
             row.title,
-            row.salary, // Correcting the typo here
+            row.salary, 
             row.manager
         ]);
     }
     console.log(table(employeeColumns));
+   }catch(error){
+    console.log(error);
+   }
 
 }
 
@@ -56,11 +55,7 @@ const roleDisplay = async (data)=>{
         ]);
     }
 
-//     await data.forEach((row) => {
-// roleColumns.push([row.id, row.title, row.salary,
-//     row.department_id]);
 
-// });
     console.log(table(roleColumns));
 
 
