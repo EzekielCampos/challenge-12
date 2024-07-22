@@ -1,9 +1,9 @@
 const inquirer = require('inquirer');
-
+// Function will get a list of the necessary items to be used for inquirer
 const {getListOfEmployees, getListOfRoles} = require('../helper/helper-functions');
-
+// Convert the data into the specified id that go with them
 const{getRoleId, getEmployeeId} = require('../helper/convert-to-id');
-
+// This will perfom the query operaiton
 const {safeQuery} = require('../rows-result/display-rows');
 
 // This function will take the data from the prompts and place it to the query string to update the role
@@ -60,6 +60,7 @@ const updatingEmployeeRole = async(table = 'employee')=>{
         employee = employee.split(' ');
         // Once the names are split they will get the corresponding id of the employee
         employee = await getEmployeeId(employee[0], employee[1]);
+        console.log(employee)
         // Get the id of the role that the user selected
         role = await getRoleId(role);
 

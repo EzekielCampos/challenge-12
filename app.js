@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const inquirer = require('inquirer');
 // This is an array that holds the cli prompt options of what action the user would like to perform
 const {options} = require('./public/options/prompt-options');

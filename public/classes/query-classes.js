@@ -1,16 +1,21 @@
 
-
+// Functions gives access to database
 const {createPool} = require('../../connection/connect-pool');
+//  These functions will perform the query operations that are passed in 
 const {runQuery, safeQuery} = require('../rows-result/display-rows');
 const test = 'employee'
 
 
+// This is the base class that holds the necessary parameters to display the data to the user
 class Query
 {
     constructor(dataTable){
 
+        // This attribute is the table that is currently being used 
         this.dataTable = dataTable;
+        // This query will output all the department data 
         this.query = `SELECT * FROM ${this.dataTable}`;
+        // This attribute will hold a specific query to list all the information about the employee and join all tables
         this.employee = `SELECT e.id AS employee_id,
         e.first_name AS employee_first_name,
         e.last_name AS employee_last_name, department.name AS Department,
@@ -24,6 +29,7 @@ class Query
     }
 
 
+    // This method will use the attributes to display the data
     async displayData(){
 
     try{
@@ -48,11 +54,13 @@ class Query
 
 }
 
-
+// The Department class will be used to add a new department to the database
 class Department extends Query{
 
+    // The constructor takes the type of table which is Department and the name of the new department
     constructor(dataTable, name){
         super(dataTable);
+        // This is an array so that this value can be used in the parameterized query to avoid injections
         this.name = [name];
         this.query = `INSERT INTO ${this.dataTable}(name) VALUES ($1);`
     }
@@ -61,6 +69,7 @@ class Department extends Query{
     async addData(){
 
         try{
+            // The safeQuery function is used to display the table
             await safeQuery(this.query, this.name)
 
         }
@@ -75,15 +84,17 @@ class Department extends Query{
 }
 
 
-
+// The Role class is used to add a new role to the database
 class Role extends Query{
 
+    // All the necessary columns needed to added a role to the database
     constructor(dataTable, title, salary, department){
         super(dataTable);
         this.title =title;
         this.salary = salary;
         this.placeholder= [title, salary];
         this.department = department;
+        // This query is used to add a new job to the table
         this.query = `INSERT INTO ${this.dataTable}(title, salary, department_id) 
         VALUES ($1, $2, ${this.department});`
 
@@ -93,25 +104,22 @@ class Role extends Query{
 
 
         try{
-
+        // The safeQuery function is used to display the table
         await safeQuery(this.query, this.placeholder);
-
-
         }
         catch(error){
             console.log(error);
         }
 
-
     }
 
     }
 
 
 
-
-    class Employee extends Query{
-
+// This class will help create a new employee to add to the database
+class Employee extends Query{
+        // These parameters are the necessary columns needed to create a new employee
         constructor(dataTable, firstName, lastName, role, manager){
             super(dataTable);
             this.firstName = firstName;
@@ -119,6 +127,7 @@ class Role extends Query{
             this.placeholder = [firstName, lastName];
             this.role = role;
             this.manager = manager;
+            // This query will insert a new employee to the table
             this.query = `INSERT INTO ${this.dataTable}(first_name, last_name, role_id, manager_id) 
         VALUES ($1, $2, ${this.role}, ${this.manager});`;
         }
@@ -126,7 +135,7 @@ class Role extends Query{
         async addData(){
             
             try{
-
+                // The safeQuery function is used to display the table
                 await safeQuery(this.query, this.placeholder);
             
             }
@@ -134,9 +143,7 @@ class Role extends Query{
                 console.log(error);
             }
 
-
         }
-
 
     }
 
