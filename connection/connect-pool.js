@@ -11,7 +11,6 @@ const createPool =()=>{
             database: process.env.DB_NAME
         
         },
-        console.log("Successs")
         )
 
 } 

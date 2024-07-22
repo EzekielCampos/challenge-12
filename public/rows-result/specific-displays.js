@@ -6,19 +6,22 @@ const {deptColumns, roleColumns, employeeColumns} = require('./column-names')
 const departmentDisplay = async (data)=>{
 
 
-    for (const row of data) {
-        deptColumns.push([
-            row.id,
-            row.name,
-            
-        ]);
+    try{
+        for (const row of data) {
+            deptColumns.push([
+                row.id,
+                row.name,
+                
+            ]);
+        }
+    
+    console.log(table(deptColumns));
     }
-//         await data.forEach((row) => {
-//         deptColumns.push([row.id, row.name]);
-// });
-console.log(data);
-console.log(deptColumns);
-console.log(table(deptColumns));
+    catch(error){
+        console.log(error);
+    }
+
+
 
 }
 
@@ -46,17 +49,24 @@ const employeeDisplay = async (data)=>{
 
 
 const roleDisplay = async (data)=>{
-    for (const row of data) {
-        roleColumns.push([
-            row.id,
-            row.title,
-            row.salary,
-            row.department_id
-        ]);
+
+    try{
+        for (const row of data) {
+            roleColumns.push([
+                row.id,
+                row.title,
+                row.salary,
+                row.department_id
+            ]);
+        }
+    
+    
+        console.log(table(roleColumns));
     }
-
-
-    console.log(table(roleColumns));
+    catch(error){
+        console.log(error);
+    }
+  
 
 
 }

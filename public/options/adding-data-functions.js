@@ -36,7 +36,8 @@ const addingDepartment = async(table)=>{
 
 const addingRole = async(table)=>{
 
-    const departmentOptions = await getListOfDepartments();
+    try{
+        const departmentOptions = await getListOfDepartments();
 
     const response = await inquirer.prompt([
 
@@ -71,13 +72,18 @@ const addingRole = async(table)=>{
 
     const role = new Role(table, title, salary, deptId)
     await role.addData();
+    }
+    catch(error){
+        console.log(error);
+    }
 
 }
 
 const addingEmployee = async(table)=>{
 
-const noSupervisor = 'N/A';
+    try{
 
+        const noSupervisor = 'N/A';
 const supervisors = await getListOfEmployees();
 supervisors.push(noSupervisor);
 const positions = await getListOfRoles();
@@ -121,37 +127,15 @@ const positions = await getListOfRoles();
 
     await employee.addData();
 
+    }
+    catch(error){
+        console.log(error);
+    }
+
+
 
 
 }
-
-// const updatingEmployeeRole = async(table = 'employee')=>{
-
-//     const positions = await getListOfRoles();
-//     const workers = await getListOfEmployees()
-
-//     const response = await inquirer.prompt([
-
-//         {
-//             type:"list",
-//             message:"Which employee would you like to update?",
-//             name:"employee",
-//             choices:workers
-//         },
-//         {
-//             type:"list",
-//             message:"SELECT",
-//             name:"role",
-//             choices:positions
-    
-//         },]);
-
-//         console.log(table);
-
-//         console.log(response);
-
-
-// }
 
 
 

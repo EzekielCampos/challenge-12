@@ -14,10 +14,7 @@ const runQuery = async(queryString, type)=>{
 
         const [department, role, employee] = tables;
         
-     
         let rows = result.rows;
-
-        console.log(rows);
       
         switch(type){
             case department:

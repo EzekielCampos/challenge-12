@@ -36,7 +36,6 @@ async function init(){
         return;
     }
 
-   console.log(answers.option);
    await init();
 
 }
