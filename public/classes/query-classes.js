@@ -3,6 +3,7 @@
 const {createPool} = require('../../connection/connect-pool');
 // const {tables} = require('../options/prompt-options');
 const {runQuery, safeQuery} = require('../rows-result/display-rows');
+const test = 'employee'
 
 
 class Query
@@ -11,6 +12,15 @@ class Query
 
         this.dataTable = dataTable;
         this.query = `SELECT * FROM ${this.dataTable}`;
+        this.employee = `SELECT e.id AS employee_id,
+        e.first_name AS employee_first_name,
+        e.last_name AS employee_last_name, department.name AS Department,
+        role.title AS Title, role.salary AS Salary,   
+        CASE WHEN m.first_name IS NOT NULL AND m.last_name IS NOT NULL THEN CONCAT(m.first_name, ' ', m.last_name)
+        ELSE 'NULL' END AS manager
+        FROM ${this.dataTable} e  LEFT JOIN employee m ON e.manager_id = m.id
+    JOIN role ON e.role_id = role.id
+    JOIN department ON role.department_id = department.id;` 
 
     }
 
@@ -19,7 +29,16 @@ class Query
 
     try{
 
-        await runQuery(this.query);
+        if(this.dataTable == test) {
+            await runQuery(this.employee);
+        }
+
+        else{
+            await runQuery(this.query);
+
+        }
+
+
 
 
     }
