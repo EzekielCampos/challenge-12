@@ -5,7 +5,7 @@ const {deptColumns, roleColumns, employeeColumns} = require('./column-names')
 
 
 // This function will display all the department data into a nice table using the table package
-const departmentDisplay = async (data)=>{
+const departmentDisplay = (data)=>{
 
     try{
         // This array will add all the data needed to be displayed into another array that will hold the title for each column
@@ -27,7 +27,7 @@ const departmentDisplay = async (data)=>{
 
 }
 // This function will display all the employees data into a nice table using the table package
-const employeeDisplay = async (data)=>{
+const employeeDisplay = (data)=>{
 
 
    try{
@@ -52,7 +52,7 @@ const employeeDisplay = async (data)=>{
 }
 
 // This function will display all the job roles data into a nice table using the table package
-const roleDisplay = async (data)=>{
+const roleDisplay = (data)=>{
 
     try{
         // This array will add all the data needed to be displayed into another array that will hold the title for each column

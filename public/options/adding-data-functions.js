@@ -6,6 +6,7 @@ const {getListOfDepartments, getListOfEmployees,getListOfRoles} = require('../he
 // The functions get the necessary id so that they can be used when using the insert query for required actions
 const{getRoleId, getDepartmentId, getEmployeeId} = require('../helper/convert-to-id');
 const {verifyNames, verifySalary} = require('../helper/validate-input');
+const {titleCase} = require('../helper/title-case');
 
 const addingDepartment = async(table)=>{
 
@@ -17,7 +18,7 @@ const addingDepartment = async(table)=>{
                 message:"What is the name of the department",
                 name:"nameOfDepartment",
                 validate: value =>verifyNames(value),
-                filter: value => value.trim()
+                filter: value => titleCase(value)
             },
     
         ]);
@@ -52,7 +53,7 @@ const addingRole = async(table)=>{
             message:"What is the name of the new role",
             name:"title",
             validate: value =>verifyNames(value),
-            filter: value => value.trim()
+            filter: value => titleCase(value)
             
         },
         {
@@ -110,14 +111,14 @@ const addingEmployee = async(table)=>{
                 message:"What is the first name?",
                 name:"firstName",
                 validate: value =>verifyNames(value),
-                filter: value => value.trim()
+                filter: value => titleCase(value)
             },
             {
                 type:"text",
                 message:"What is the last name",
                 name:"lastName",
                 validate: value =>verifyNames(value),
-                filter: value => value.trim()
+                filter: value => titleCase(value)
         
             },
             {

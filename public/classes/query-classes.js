@@ -1,6 +1,4 @@
 
-// Functions gives access to database
-const {createPool} = require('../../connection/connect-pool');
 //  These functions will perform the query operations that are passed in 
 const {runQuery, safeQuery} = require('../rows-result/display-rows');
 const {tables} = require('../options/prompt-options');
