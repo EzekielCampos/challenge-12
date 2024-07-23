@@ -8,16 +8,27 @@ const {deptColumns, roleColumns, employeeColumns} = require('./column-names')
 const departmentDisplay = (data)=>{
 
     try{
+        
         // This array will add all the data needed to be displayed into another array that will hold the title for each column
-        for (const row of data) {
+        data.forEach(row => {
             deptColumns.push([
                 row.id,
                 row.name,
                 
             ]);
-        }
+        })
     // Displays the table of all the departments information
     console.log(table(deptColumns));
+   
+    // This will remove the data just added so that if user wants to view it again it won't duplicate
+    data.forEach(row => {
+        deptColumns.pop([
+            row.id,
+            row.name,
+            
+        ]);
+    })
+
     }
     catch(error){
         console.log(error);
@@ -31,8 +42,9 @@ const employeeDisplay = (data)=>{
 
 
    try{
+    
     // This array will add all the data needed to be displayed into another array that will hold the title for each column
-    for (const row of data) {
+    data.forEach(row => {
         employeeColumns.push([
             row.employee_id,
             row.employee_first_name,
@@ -42,9 +54,25 @@ const employeeDisplay = (data)=>{
             row.salary, 
             row.manager
         ]);
-    }
+    })
     // Display the table of all the employees information
     console.log(table(employeeColumns));
+
+        // This will remove the data just added so that if user wants to view it again it won't duplicate
+
+    data.forEach(row => {
+        employeeColumns.pop([
+            row.employee_id,
+            row.employee_first_name,
+            row.employee_last_name,
+            row.department,
+            row.title,
+            row.salary, 
+            row.manager
+        ]);
+    })
+
+
    }catch(error){
     console.log(error);
    }
@@ -55,18 +83,30 @@ const employeeDisplay = (data)=>{
 const roleDisplay = (data)=>{
 
     try{
+       
         // This array will add all the data needed to be displayed into another array that will hold the title for each column
-        for (const row of data) {
+        data.forEach(row => {
             roleColumns.push([
                 row.id,
                 row.title,
                 row.salary,
                 row.department
             ]);
-        }
+        })
     
         // Displays the table of all the roles information
         console.log(table(roleColumns));
+    // This will remove the data just added so that if user wants to view it again it won't duplicate
+        data.forEach(row => {
+            roleColumns.pop([
+                row.id,
+                row.title,
+                row.salary,
+                row.department
+            ]);
+        })
+
+      
     }
     catch(error){
         console.log(error);
