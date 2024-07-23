@@ -1,4 +1,3 @@
-
 const inquirer = require('inquirer');
 // Different classes that each represent the tables that need to be manipulated from the database
 const {Department, Role, Employee}= require('../classes/query-classes');
@@ -6,6 +5,7 @@ const {Department, Role, Employee}= require('../classes/query-classes');
 const {getListOfDepartments, getListOfEmployees,getListOfRoles} = require('../helper/helper-functions')
 // The functions get the necessary id so that they can be used when using the insert query for required actions
 const{getRoleId, getDepartmentId, getEmployeeId} = require('../helper/convert-to-id');
+const {verifyNames, verifySalary} = require('../helper/validate-input');
 
 const addingDepartment = async(table)=>{
 
@@ -16,6 +16,8 @@ const addingDepartment = async(table)=>{
                 type:"text",
                 message:"What is the name of the department",
                 name:"nameOfDepartment",
+                validate: verifyNames(value),
+                filter: value => value.trim()
             },
     
         ]);
@@ -49,15 +51,17 @@ const addingRole = async(table)=>{
             type:"text",
             message:"What is the name of the new role",
             name:"title",
+            validate: verifyNames(value),
+            filter: value => value.trim()
+            
         },
         {
             type:"text",
             message:"What is the salary?",
             name:"salary",
-            validate: function (value) {
-                const valid = !isNaN(parseFloat(value)) && isFinite(value);
-                return valid || 'Please enter a valid number';
-              },
+            // Checks if the value is numbers only
+            validate: verifySalary(value),
+            //This will convert the user input into a number to be used in the table
               filter: Number,
         },
         {
@@ -94,7 +98,7 @@ const addingEmployee = async(table)=>{
         const noSupervisor = 'N/A';
         // This will return an array of all the employees names from the database
         const supervisors = await getListOfEmployees();
-        // Add this option if the user does not have supervisro
+        // Add this option if the user does not have supervisor
         supervisors.push(noSupervisor);
         // This will return an array of all the roles from the database
         const positions = await getListOfRoles();
@@ -104,11 +108,15 @@ const addingEmployee = async(table)=>{
                 type:"text",
                 message:"What is the first name?",
                 name:"firstName",
+                validate: verifyNames(value),
+                filter: value => value.trim()
             },
             {
                 type:"text",
                 message:"What is the last name",
                 name:"lastName",
+                validate: verifyNames(value),
+                filter: value => value.trim()
         
             },
             {

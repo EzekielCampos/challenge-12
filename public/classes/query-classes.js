@@ -54,8 +54,6 @@ class Query
         }
 
 
-
-
     }
         catch(error){
             console.log (error);
