@@ -15,7 +15,6 @@ const updateQuery = async (table, employee, role)=> {
             // This is the query string that will update the employee's role
             const queryString =  `UPDATE ${table} SET role_id = $1 WHERE id = $2;`;
         
-            console.log(queryString, placeholder);
             // Call the method perform the parameterized query
             await safeQuery(queryString, placeholder);
         
@@ -60,7 +59,6 @@ const updatingEmployeeRole = async(table = 'employee')=>{
         employee = employee.split(' ');
         // Once the names are split they will get the corresponding id of the employee
         employee = await getEmployeeId(employee[0], employee[1]);
-        console.log(employee)
         // Get the id of the role that the user selected
         role = await getRoleId(role);
 

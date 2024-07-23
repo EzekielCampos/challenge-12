@@ -31,6 +31,7 @@ const addingDepartment = async(table)=>{
     
         // Use the addData method to perform the insert query to add a new department
         await dept.addData();
+        console.log('Department succesfully added!')
 
     }
     catch(error){
@@ -86,6 +87,7 @@ const addingRole = async(table)=>{
     const role = new Role(table, title, salary, deptId)
     // This method will add a new role to the database using the user responses
     await role.addData();
+    console.log('Position succesfully added!')
     }
     catch(error){
         console.log(error);
@@ -151,6 +153,7 @@ const addingEmployee = async(table)=>{
         const employee = new Employee(table, firstName, lastName, role, manager);
         // This method adds a new employee to the database
         await employee.addData();
+        console.log('Employee successfully added!')
 
         }
         catch(error){
