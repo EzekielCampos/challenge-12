@@ -39,7 +39,7 @@ const firstOption = async()=>{
 
 }
 // This option will allow the user to either add an emlployee, role, or a department
-const secondOption= async() =>{
+const secondOption = async() =>{
 
 
     const response = await inquirer.prompt([

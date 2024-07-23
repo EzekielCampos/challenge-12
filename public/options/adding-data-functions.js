@@ -16,7 +16,7 @@ const addingDepartment = async(table)=>{
                 type:"text",
                 message:"What is the name of the department",
                 name:"nameOfDepartment",
-                validate: verifyNames(value),
+                validate: value =>verifyNames(value),
                 filter: value => value.trim()
             },
     
@@ -51,7 +51,7 @@ const addingRole = async(table)=>{
             type:"text",
             message:"What is the name of the new role",
             name:"title",
-            validate: verifyNames(value),
+            validate: value =>verifyNames(value),
             filter: value => value.trim()
             
         },
@@ -60,9 +60,8 @@ const addingRole = async(table)=>{
             message:"What is the salary?",
             name:"salary",
             // Checks if the value is numbers only
-            validate: verifySalary(value),
-            //This will convert the user input into a number to be used in the table
-              filter: Number,
+            validate: value => verifySalary(value),
+           
         },
         {
             type:"list",
@@ -75,8 +74,10 @@ const addingRole = async(table)=>{
     ]);
 
     // These are the responses that the user enter and selected for the prompts
-    const {department, salary, title} = response;
+    let {department, salary, title} = response;
 
+    // Need to convert string into a number 
+    salary = await parseFloat(salary);
     // This will convert the department name to it's corresponding id number to be used for creating the Role class
     const deptId = await getDepartmentId(department)
 
@@ -108,14 +109,14 @@ const addingEmployee = async(table)=>{
                 type:"text",
                 message:"What is the first name?",
                 name:"firstName",
-                validate: verifyNames(value),
+                validate: value =>verifyNames(value),
                 filter: value => value.trim()
             },
             {
                 type:"text",
                 message:"What is the last name",
                 name:"lastName",
-                validate: verifyNames(value),
+                validate: value =>verifyNames(value),
                 filter: value => value.trim()
         
             },
