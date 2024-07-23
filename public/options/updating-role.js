@@ -64,6 +64,7 @@ const updatingEmployeeRole = async(table = 'employee')=>{
 
         // Once all the necessary data is here call the update query function
         await updateQuery(table, employee, role);
+        console.log("Employee role updated!");
     }
     catch(error){
         console.log(error);
